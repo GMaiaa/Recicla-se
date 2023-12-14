@@ -59,7 +59,7 @@ html, body {
   padding: 16px;
   width: 520px;
   height: 49px;
-  border: 1px solid #5C73DB;
+  border: 1px solid #7bcb04;
   border-radius: 12px;
   margin-bottom: 12px;
 
@@ -71,13 +71,13 @@ html, body {
   line-height: 19px;
   padding-top: 16px;
   padding-bottom: 16px;
-  color: #5C73DB;
+  color: #7bcb04;
 }
 
 .container form .button {
   width: 520px;
   height: 48px;
-  background: #4763E4;
+  background: #7bcb04;
   border-radius: 12px;
   color: #fff;
   border: none;
@@ -116,6 +116,6 @@ html, body {
   font-size: 16px;
   line-height: 19px;
   text-decoration-line: underline;
-  color: #5C73DB;
+  color: #7bcb04;
 }
 

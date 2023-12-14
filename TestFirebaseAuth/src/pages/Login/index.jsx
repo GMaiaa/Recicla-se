@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import arrowImg from "../../assets/arrow.svg";
 import logoImg from "../../assets/logo.jfif";
 import { auth } from "../../services/firebaseConfig";
@@ -9,6 +9,8 @@ import "./styles.css";
 export function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const navigate = useNavigate()
 
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
@@ -22,12 +24,12 @@ export function Login() {
     return <p>carregando...</p>;
   }
   if (user) {
-    return console.log(user);
+    navigate("/profile")
   }
   return (
     <div className="container">
       <header className="header">
-        <img src={logoImg} alt="Workflow" className="logoImg" />
+        <img src={logoImg} alt="Recicla-se Logo" className="logoImg" />
         <span>Por favor digite suas informações de login</span>
       </header>
 

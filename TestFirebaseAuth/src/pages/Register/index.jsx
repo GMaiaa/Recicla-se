@@ -3,20 +3,42 @@ import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { Link } from "react-router-dom";
 import arrowImg from "../../assets/arrow.svg";
 import logoImg from "../../assets/logo.jfif";
-import { auth } from "../../services/firebaseConfig";
+import { auth, usuariosCollection } from "../../services/firebaseConfig"; // Certifique-se de importar 'db' corretamente
 import "./styles.css";
+import { addDoc } from "firebase/firestore";
+
 
 export function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [name , setName] = useState("")
+  const [age , setAge] = useState("")
+
+  
 
   const [createUserWithEmailAndPassword, user, loading, error] =
     useCreateUserWithEmailAndPassword(auth);
 
-  function handleSignOut(e) {
-    e.preventDefault();
-    createUserWithEmailAndPassword(email, password);
-  }
+    async function handleSignUp(e) {
+      e.preventDefault();
+    
+      try {
+        // Cria o usuário no Firebase Authentication
+        await createUserWithEmailAndPassword(email, password);
+    
+        // Após a autenticação bem-sucedida, cria um documento na coleção 'usuarios'
+        await addDoc(usuariosCollection, {
+          nome: name,
+          idade: age,
+        });
+    
+        console.log(user)
+
+      } catch (error) {
+        console.error('Erro ao criar usuário:', error);
+      }
+    }
+    
 
   if (loading) {
     return <p>carregando...</p>;
@@ -51,7 +73,29 @@ export function Register() {
           />
         </div>
 
-        <button onClick={handleSignOut} className="button">
+        <div className="inputContainer">
+          <label htmlFor="name">Nome</label>
+          <input
+            type="text"
+            name="name"
+            id="name"
+            placeholder="Seu nome"
+            onChange={(e) => setName(e.target.value)}
+          />
+        </div>
+
+        <div className="inputContainer">
+          <label htmlFor="age">Idade</label>
+          <input
+            type="number"
+            name="age"
+            id="age"
+            placeholder="Sua idade"
+            onChange={(e) => setAge(e.target.value)}
+          />
+        </div>
+
+        <button onClick={handleSignUp} className="button">
           Cadastrar <img src={arrowImg} alt="->" />
         </button>
         <div className="footer">
